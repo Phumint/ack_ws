@@ -1,0 +1,6 @@
+<launch>
+    <include file= "$(find-pkg-share steer_bot_bringup)/launch/steer_bot.launch.xml"/>
+
+    <include file = "$(find-pkg-share gazebo_ros)/launch/gazebo.launch.py"/>
+
+</launch>

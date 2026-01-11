@@ -1,0 +1,33 @@
+<launch>
+    <let name="urdf_path" 
+         value="$(find-pkg-share steer_bot_description)/urdf/my_robot.urdf.xacro" />
+
+    <let name="rviz_config_path"
+         value="$(find-pkg-share steer_bot_description)/rviz/rviz_config.rviz" />
+    
+    <node pkg="robot_state_publisher" exec="robot_state_publisher">
+        <param name="robot_description"
+               value="$(command 'xacro $(var urdf_path)')" />
+    </node>
+
+    <node  name="spawn_robot_urdf" pkg="gazebo_ros" exec="spawn_entity.py"
+          args="-topic robot_description -x 0.0 -y 0.0 -z 0.0 -entity my_robot" 
+          output="screen" />
+
+
+    <!-- <node pkg="controller_manager" exec="ros2_control_node">
+        <param from="$(find-pkg-share steer_bot_bringup)/config/steer_bot_controllers.yaml" />
+        <param name="robot_description"
+               value="$(command 'xacro $(var urdf_path)')" />
+        
+        <remap from="/ackermann_steering_controller/tf_odometry" to="/tf" />
+    </node> -->
+
+    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
+
+    <node pkg="controller_manager" exec="spawner" args="ackermann_steering_controller"/>
+ 
+    <node pkg="rviz2" exec="rviz2" output="screen" 
+          args="-d $(var rviz_config_path)" />
+ 
+</launch>

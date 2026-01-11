@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<robot name="steer_bot" xmlns:xacro="http://wiki.ros.org/xacro">
+   
+    <xacro:include filename="steer_bot.urdf.xacro" />
+    <xacro:include filename="steer_bot.ros2_control.xacro" />
+
+</robot>
