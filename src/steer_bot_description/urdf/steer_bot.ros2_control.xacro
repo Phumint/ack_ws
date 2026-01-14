@@ -4,7 +4,7 @@
     <ros2_control name="SteerBotHardwareInterface" type="system">
 
         <hardware>
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </hardware>
 
         <joint name="front_left_steer_joint">
@@ -50,7 +50,7 @@
     </ros2_control>
 
 <gazebo>
-    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+    <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
       <robot_param>robot_description</robot_param>
       <robot_param_node>robot_state_publisher</robot_param_node>
       <parameters>$(find steer_bot_bringup)/config/steer_bot_controllers.yaml</parameters>

@@ -1,11 +1,12 @@
 <?xml version="1.0" ?>
-<sdf version = "1.6">
-    <world name = "default">
+<sdf version ="1.8">
+    <world name = "world_demo">
         <include>
-            <uri>model://sun</uri>
+            <uri>file:///home/phumint/.ignition/fuel/fuel.gazebosim.org/openrobotics/models/sun/3</uri>
         </include>
-        </include>
-            <uri>model://ground_plane</uri>
+
+        <include>
+            <uri>file:///home/phumint/.ignition/fuel/fuel.gazebosim.org/openrobotics/models/ground%20plane/5</uri>
         </include>
     </world>
 </sdf>
