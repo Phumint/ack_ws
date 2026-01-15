@@ -3,5 +3,6 @@
    
     <xacro:include filename="steer_bot.urdf.xacro" />
     <xacro:include filename="steer_bot.ros2_control.xacro" />
+    <xacro:include filename="steer_bot_sensor.xacro" />
 
 </robot>

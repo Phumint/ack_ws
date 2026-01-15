@@ -14,15 +14,6 @@
           args="-topic robot_description -x 0.0 -y 0.0 -z 0.0 -entity my_robot" 
           output="screen" />
 
-
-    <!-- <node pkg="controller_manager" exec="ros2_control_node">
-        <param from="$(find-pkg-share steer_bot_bringup)/config/steer_bot_controllers.yaml" />
-        <param name="robot_description"
-               value="$(command 'xacro $(var urdf_path)')" />
-        
-        <remap from="/ackermann_steering_controller/tf_odometry" to="/tf" />
-    </node> -->
-
     <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
 
     <node pkg="controller_manager" exec="spawner" args="ackermann_steering_controller"/>

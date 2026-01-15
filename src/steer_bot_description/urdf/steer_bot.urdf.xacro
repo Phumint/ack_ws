@@ -1,12 +1,6 @@
 <?xml version="1.0"?>
 <!--
   Robot model adapted from https://github.com/CIR-KIT/steer_drive_ros/blob/kinetic-devel/steer_drive_controller/test/common/urdf/steerbot.xacro
-
-  Modifications:
-    Remove base_footprint link. Useful for navigation but not necessary for a simple example.
-    Added materials for URDF
-    Updated inertials
-
   Geometry:
     The Ackermann steering controllers require the longitudinal
     separation between the front and back wheel axes and the
@@ -16,22 +10,12 @@
     wheel_separation_h = base_length - 2 * axle_offset = 0.4
     wheel_separation_w = base_width  + 2 * axle_offset = 0.4
 -->
+
 <robot name="steer_bot" xmlns:xacro="http://wiki.ros.org/xacro">
   <!-- Include xacro for inertials, materials and wheels -->
   <xacro:include filename="$(find steer_bot_description)/urdf/wheel.xacro"/>
 
   <xacro:property name="robot_namespace" value="/steer_bot"/>
-
-  <!-- Gazebo plugins -->
-  <!-- <gazebo> -->
-    <!-- Load ros_control plugin using the steer_bot_hardware_gazebo
-    implementation of the hardware_interface::RobotHW -->
-    <!-- <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"> -->
-      <!-- <robotNamespace>${robot_namespace}</robotNamespace> -->
-      <!-- <robotSimType>steer_bot_hardware_gazebo/SteerBotHardwareGazebo</robotSimType> -->
-      <!-- <legacyModeNS>false</legacyModeNS> -->
-    <!-- </plugin> -->
-  <!-- </gazebo> -->
 
   <!-- Math constants -->
   <xacro:property name="deg_to_rad" value="0.01745329251994329577"/>
@@ -58,6 +42,12 @@
 
   <link name="base_footprint"/>
 
+  <joint name="base_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
   <!-- Base link -->
   <link name="base_link">
     <visual>
@@ -78,12 +68,6 @@
         mass="${base_mass}"
         x="${base_length}" y="${base_width}" z="${base_height}" />
   </link>
-
-  <joint name="base_joint" type="fixed">
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-    <origin xyz="0 0 0" rpy="0 0 0"/>
-  </joint>
 
   <!-- Front steer and rear wheel joints required for ackermann_steering_controller -->
   <xacro:front_steer
@@ -156,10 +140,5 @@
     wheel_mass="${wheel_mass}">
     <origin xyz="${-base_length/2+axle_offset} ${+base_width/2+axle_offset} 0" rpy="${-90 * deg_to_rad} 0 0"/>
   </xacro:rear_wheel_lr>
-
-  <!-- Colour -->
-  <!-- <gazebo reference="base_link"> -->
-    <!-- <material>Gazebo/Green</material> -->
-  <!-- </gazebo> -->
 
 </robot>
