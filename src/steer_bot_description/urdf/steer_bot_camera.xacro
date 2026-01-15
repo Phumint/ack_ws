@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="steer_bot" xmlns:xacro="http://wiki.ros.org/xacro">
    
-
     <!-- Camera link -->
     <link name="camera_link">
     <visual>

@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<robot name="steer_bot" xmlns:xacro="http://wiki.ros.org/xacro">
+   
+
+    <!-- Camera link -->
+    <link name="lidar_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <box size="0.05 0.05 0.03"/> 
+        <!-- length, width, height -->
+        </geometry>
+        <material name="yellow" />
+    </visual>
+    <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+        <box size="0.05 0.05 0.03"/>
+        </geometry>
+    </collision>
+    <xacro:solid_cuboid_inertial 
+        rpy="0 0 0" xyz="0 0 0"
+        mass="0.1"
+        x="0.05" y="0.05" z="0.03" />
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+        <origin xyz="0 0 ${(base_height/2)}" rpy="0 0 0"/>
+    </joint>
+
+    <gazebo reference="lidar_link">
+        <material>Gazebo/Black</material>
+
+        <sensor name="laser" type="gpu_lidar">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>false</visualize>
+            <update_rate>10</update_rate>
+            <lidar>
+                <scan>
+                    <horizontal>
+                        <samples>360</samples>
+                        <min_angle>-3.14</min_angle>
+                        <max_angle>3.14</max_angle>
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.3</min>
+                    <max>12</max>
+                </range>
+            </lidar>
+            
+            <topic>scan</topic>
+            
+            <gz_frame_id>lidar_link</gz_frame_id>
+        
+        </sensor>
+    </gazebo>
+
+</robot>
